@@ -37,7 +37,6 @@ import com.gibran.dogsapp.presentation.viewmodel.DogListViewModel
 fun DogListScreen(
     viewModel: DogListViewModel = hiltViewModel(),
     onDogClick: (Dog) -> Unit = {},
-    onBackPressed: () -> Unit = {},
     sharedTransitionScope: SharedTransitionScope,
     animatedContentScope: AnimatedContentScope
 ) {
@@ -55,11 +54,7 @@ fun DogListScreen(
         onEvent = viewModel::handleEvent,
         onDogClick = onDogClick,
         onBackPressed = {
-            if (onBackPressed != {}) {
-                onBackPressed()
-            } else {
-                (context as? ComponentActivity)?.finish()
-            }
+            (context as? ComponentActivity)?.finish()
         },
         sharedTransitionScope = sharedTransitionScope,
         animatedContentScope = animatedContentScope
