@@ -1,4 +1,4 @@
-package com.gibran.dogsapp.ui.theme
+package com.gibran.dogsapp.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

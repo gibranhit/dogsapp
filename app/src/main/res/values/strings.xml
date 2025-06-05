@@ -1,3 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">DogsApp</string>
+
+    <!-- Navigation and UI -->
+    <string name="dogs_we_love">Dogs We Love</string>
+    <string name="back">Back</string>
+    <string name="retry">Retry</string>
+
+    <!-- Dog Info -->
+    <string name="about_dog">About %1$s</string>
+    <string name="almost_years_old">Almost %1$d years old</string>
+    <string name="almost_years">Almost %1$d years</string>
+
+    <!-- Info Cards -->
+    <string name="personality">Personality</string>
+    <string name="age_group">Age Group</string>
+
+    <!-- Personality Types -->
+    <string name="friendly">Friendly</string>
+    <string name="playful">Playful</string>
+    <string name="loyal">Loyal</string>
+    <string name="cautious">Cautious</string>
+    <string name="protective">Protective</string>
+    <string name="leader">Leader</string>
+    <string name="unique">Unique</string>
+
+    <!-- Age Groups -->
+    <string name="puppy">Puppy</string>
+    <string name="adult">Adult</string>
+    <string name="senior">Senior</string>
+
+    <!-- Error Messages -->
+    <string name="failed_to_load_dogs">Failed to load dogs. Please check your internet connection.</string>
+    <string name="unknown_error">Unknown error</string>
 </resources>

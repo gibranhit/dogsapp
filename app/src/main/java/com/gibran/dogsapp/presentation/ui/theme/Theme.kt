@@ -1,6 +1,5 @@
-package com.gibran.dogsapp.ui.theme
+package com.gibran.dogsapp.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
