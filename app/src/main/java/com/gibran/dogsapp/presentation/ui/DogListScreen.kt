@@ -5,12 +5,26 @@ import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,11 +32,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.gibran.dogsapp.R
 import com.gibran.dogsapp.domain.model.Dog
 import com.gibran.dogsapp.presentation.event.DogListUiEvent
 import com.gibran.dogsapp.presentation.state.DogListUiState
@@ -30,6 +46,8 @@ import com.gibran.dogsapp.presentation.ui.components.DogCard
 import com.gibran.dogsapp.presentation.ui.components.ShimmerDogCard
 import com.gibran.dogsapp.presentation.ui.theme.BackgroundColor
 import com.gibran.dogsapp.presentation.ui.theme.DarkGrayText
+import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingMedium
+import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingXl
 import com.gibran.dogsapp.presentation.viewmodel.DogListViewModel
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -65,18 +83,18 @@ fun DogListScreen(
 @Composable
 fun DogListContent(
     uiState: DogListUiState,
-    onEvent: (DogListUiEvent) -> Unit,
+    onEvent: (DogListUiEvent) -> Unit = {},
     onDogClick: (Dog) -> Unit = {},
     onBackPressed: () -> Unit = {},
-    sharedTransitionScope: SharedTransitionScope,
-    animatedContentScope: AnimatedContentScope
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedContentScope: AnimatedContentScope? = null
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        "Dogs We Love",
+                        stringResource(R.string.dogs_we_love),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
                         color = DarkGrayText
@@ -103,7 +121,7 @@ fun DogListContent(
             when {
                 uiState.isLoading -> {
                     LazyColumn(
-                        contentPadding = PaddingValues(vertical = 8.dp)
+                        contentPadding = PaddingValues(vertical = spacingMedium)
                     ) {
                         items(5) {
                             ShimmerDogCard()
@@ -122,18 +140,18 @@ fun DogListContent(
                             style = MaterialTheme.typography.bodyLarge,
                             textAlign = TextAlign.Center
                         )
-                        Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(spacingXl))
                         Button(
                             onClick = { onEvent(DogListUiEvent.RetryLoadDogs) }
                         ) {
-                            Text("Retry")
+                            Text(stringResource(R.string.retry))
                         }
                     }
                 }
 
                 else -> {
                     LazyColumn(
-                        contentPadding = PaddingValues(vertical = 8.dp)
+                        contentPadding = PaddingValues(vertical = spacingMedium)
                     ) {
                         items(uiState.dogs) { dog ->
                             DogCard(
@@ -150,33 +168,32 @@ fun DogListContent(
     }
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 fun DogListContentLoadingPreview() {
-    DogListContentPreview(
+    DogListContent(
         uiState = DogListUiState(isLoading = true),
-        onEvent = {},
-        onBackPressed = {}
     )
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 fun DogListContentErrorPreview() {
-    DogListContentPreview(
+    DogListContent(
         uiState = DogListUiState(
             isLoading = false,
             errorMessage = "Failed to load dogs. Please check your internet connection."
-        ),
-        onEvent = {},
-        onBackPressed = {}
+        )
     )
 }
 
+@OptIn(ExperimentalSharedTransitionApi::class)
 @Preview(showBackground = true)
 @Composable
 fun DogListContentSuccessPreview() {
-    DogListContentPreview(
+    DogListContent(
         uiState = DogListUiState(
             dogs = listOf(
                 Dog(
@@ -204,83 +221,5 @@ fun DogListContentSuccessPreview() {
             isLoading = false,
             errorMessage = null
         ),
-        onEvent = {},
-        onBackPressed = {}
     )
-}
-
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
-@Composable
-private fun DogListContentPreview(
-    uiState: DogListUiState,
-    onEvent: (DogListUiEvent) -> Unit,
-    onBackPressed: () -> Unit = {}
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        "Dogs We Love",
-                        style = MaterialTheme.typography.headlineMedium,
-                        fontWeight = FontWeight.Bold,
-                        color = DarkGrayText
-                    )
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = BackgroundColor)
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .padding(paddingValues)
-                .background(BackgroundColor)
-                .fillMaxSize()
-        ) {
-
-            when {
-                uiState.isLoading -> {
-                    LazyColumn(
-                        contentPadding = PaddingValues(vertical = 8.dp)
-                    ) {
-                        items(5) {
-                            ShimmerDogCard()
-                        }
-                    }
-                }
-
-                uiState.errorMessage != null -> {
-                    Column(
-                        modifier = Modifier.align(Alignment.Center),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            text = uiState.errorMessage,
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodyLarge,
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(modifier = Modifier.height(16.dp))
-                        Button(
-                            onClick = { onEvent(DogListUiEvent.RetryLoadDogs) }
-                        ) {
-                            Text("Retry")
-                        }
-                    }
-                }
-
-                else -> {
-                    LazyColumn(
-                        contentPadding = PaddingValues(vertical = 8.dp)
-                    ) {
-                        items(uiState.dogs) { dog ->
-                            DogCard(
-                                dog = dog,
-                            )
-                        }
-                    }
-                }
-            }
-        }
-    }
 }

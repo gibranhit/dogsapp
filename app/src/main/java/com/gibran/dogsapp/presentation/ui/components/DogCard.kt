@@ -74,7 +74,6 @@ fun ShimmerDogCard() {
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Shimmer Image
             Column(
                 modifier = Modifier
                     .width(Dimens.dogCardImageWidth)
@@ -96,7 +95,6 @@ fun ShimmerDogCard() {
                 )
             }
 
-            // Shimmer Text Content
             Column {
                 Spacer(modifier = Modifier.height(Dimens.dogCardTextTopOffset))
                 Column(
@@ -115,7 +113,6 @@ fun ShimmerDogCard() {
                             vertical = Dimens.spacingMedium
                         ),
                 ) {
-                    // Title shimmer
                     Box(
                         modifier = Modifier
                             .height(Dimens.shimmerTitleHeight)
@@ -126,7 +123,6 @@ fun ShimmerDogCard() {
 
                     Spacer(modifier = Modifier.height(Dimens.spacingMedium))
 
-                    // Description shimmer lines
                     Box(
                         modifier = Modifier
                             .height(Dimens.shimmerTextHeight)
