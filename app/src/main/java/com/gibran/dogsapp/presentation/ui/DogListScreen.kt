@@ -36,7 +36,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.gibran.dogsapp.R
 import com.gibran.dogsapp.domain.model.Dog
@@ -44,10 +43,10 @@ import com.gibran.dogsapp.presentation.event.DogListUiEvent
 import com.gibran.dogsapp.presentation.state.DogListUiState
 import com.gibran.dogsapp.presentation.ui.components.DogCard
 import com.gibran.dogsapp.presentation.ui.components.ShimmerDogCard
-import com.gibran.dogsapp.presentation.ui.theme.BackgroundColor
-import com.gibran.dogsapp.presentation.ui.theme.DarkGrayText
-import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingMedium
-import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingXl
+import com.gibran.dogsapp.presentation.theme.BackgroundColor
+import com.gibran.dogsapp.presentation.theme.DarkGrayText
+import com.gibran.dogsapp.presentation.theme.Dimens.spacingMedium
+import com.gibran.dogsapp.presentation.theme.Dimens.spacingXl
 import com.gibran.dogsapp.presentation.viewmodel.DogListViewModel
 
 @OptIn(ExperimentalSharedTransitionApi::class)
@@ -55,8 +54,8 @@ import com.gibran.dogsapp.presentation.viewmodel.DogListViewModel
 fun DogListScreen(
     viewModel: DogListViewModel = hiltViewModel(),
     onDogClick: (Dog) -> Unit = {},
-    sharedTransitionScope: SharedTransitionScope,
-    animatedContentScope: AnimatedContentScope
+    sharedTransitionScope: SharedTransitionScope? = null,
+    animatedContentScope: AnimatedContentScope ? = null
 ) {
     val uiState by viewModel.uiState.collectAsState()
     val context = LocalContext.current

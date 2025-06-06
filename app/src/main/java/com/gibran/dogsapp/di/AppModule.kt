@@ -13,8 +13,12 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Qualifier
 import javax.inject.Singleton
 
 @Module
@@ -47,8 +51,22 @@ object AppModule {
     @Singleton
     fun provideDogDao(database: DogDatabase): DogDao = database.dogDao()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    @DispatchersIO
+    @Provides
+    fun providesDispatchersIO(): CoroutineDispatcher = Dispatchers.IO
+
     @Provides
     @Singleton
-    fun provideDogRepository(api: DogApi, dao: DogDao): DogRepository =
-        DogRepositoryImpl(api, dao)
+    fun provideDogRepository(
+        api: DogApi,
+        dao: DogDao,
+        @DispatchersIO dispatcher: CoroutineDispatcher
+    ): DogRepository =
+        DogRepositoryImpl(api, dao, dispatcher)
 }
+
+
+@Qualifier
+@Retention(AnnotationRetention.RUNTIME)
+annotation class DispatchersIO

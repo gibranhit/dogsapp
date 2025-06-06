@@ -9,6 +9,7 @@ import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before
@@ -20,10 +21,11 @@ class DogRepositoryImplTest {
     private val mockApi = mockk<DogApi>()
     private val mockDao = mockk<DogDao>()
     private lateinit var repository: DogRepositoryImpl
+    private val ioDispatcher = UnconfinedTestDispatcher()
 
     @Before
     fun setup() {
-        repository = DogRepositoryImpl(mockApi, mockDao)
+        repository = DogRepositoryImpl(mockApi, mockDao, ioDispatcher)
     }
 
     @Test

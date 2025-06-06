@@ -42,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush.Companion.verticalGradient
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,16 +51,16 @@ import coil.compose.AsyncImagePainter
 import com.gibran.dogsapp.R
 import com.gibran.dogsapp.domain.model.Dog
 import com.gibran.dogsapp.presentation.ui.components.shimmerEffect
-import com.gibran.dogsapp.presentation.ui.theme.BackgroundColor
-import com.gibran.dogsapp.presentation.ui.theme.CardBackground
-import com.gibran.dogsapp.presentation.ui.theme.DarkGrayText
-import com.gibran.dogsapp.presentation.ui.theme.Dimens
-import com.gibran.dogsapp.presentation.ui.theme.Dimens.dogCardDetailHeight
-import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingMedium
-import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingXs
-import com.gibran.dogsapp.presentation.ui.theme.Dimens.spacingXxs
-import com.gibran.dogsapp.presentation.ui.theme.DogsAppTheme
-import com.gibran.dogsapp.presentation.ui.theme.GrayText
+import com.gibran.dogsapp.presentation.theme.BackgroundColor
+import com.gibran.dogsapp.presentation.theme.CardBackground
+import com.gibran.dogsapp.presentation.theme.DarkGrayText
+import com.gibran.dogsapp.presentation.theme.Dimens
+import com.gibran.dogsapp.presentation.theme.Dimens.dogCardDetailHeight
+import com.gibran.dogsapp.presentation.theme.Dimens.spacingMedium
+import com.gibran.dogsapp.presentation.theme.Dimens.spacingXs
+import com.gibran.dogsapp.presentation.theme.Dimens.spacingXxs
+import com.gibran.dogsapp.presentation.theme.DogsAppTheme
+import com.gibran.dogsapp.presentation.theme.GrayText
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalSharedTransitionApi::class)
 @Composable
@@ -80,7 +81,8 @@ fun DogDetailScreen(
                         text = dog.name,
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.Bold,
-                        color = DarkGrayText
+                        color = DarkGrayText,
+                        modifier = Modifier.testTag("dogNameText")
                     )
                 },
                 navigationIcon = {
@@ -237,7 +239,7 @@ fun DogDetailScreen(
                         InfoCard(
                             title = stringResource(id = R.string.age_group),
                             content = getAgeGroup(dog.age),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.weight(1f).testTag("ageGroupText")
                         )
                     }
                 }

@@ -25,12 +25,12 @@ import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import com.gibran.dogsapp.R
 import com.gibran.dogsapp.domain.model.Dog
-import com.gibran.dogsapp.presentation.ui.theme.CardBackground
-import com.gibran.dogsapp.presentation.ui.theme.DarkGrayText
-import com.gibran.dogsapp.presentation.ui.theme.Dimens
-import com.gibran.dogsapp.presentation.ui.theme.GrayText
-import com.gibran.dogsapp.presentation.ui.theme.ShimmerLight
-import com.gibran.dogsapp.presentation.ui.theme.ShimmerMedium
+import com.gibran.dogsapp.presentation.theme.CardBackground
+import com.gibran.dogsapp.presentation.theme.DarkGrayText
+import com.gibran.dogsapp.presentation.theme.Dimens
+import com.gibran.dogsapp.presentation.theme.GrayText
+import com.gibran.dogsapp.presentation.theme.ShimmerLight
+import com.gibran.dogsapp.presentation.theme.ShimmerMedium
 
 fun Modifier.shimmerEffect(): Modifier = composed {
     var size by remember { mutableStateOf(IntSize.Zero) }
