@@ -8,7 +8,7 @@ entre pantallas y manejo de estados.
 
 ### Video Demostrativo
 
-[![Dogs App Demo](screenshots/video.gif)
+![Dogs App Demo](screenshots/video.gif)
 
 El video muestra:
 
